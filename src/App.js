@@ -1,24 +1,55 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { useState } from "react";
 import './App.css';
+import Nav from "./components/Nav";
+import Home from "./components/Home";
+import Categories from "./components/Categories";
+import LogInForm from "./components/LogInForm";
+import SignUp from "./components/SignUp";
+import GameReview from "./components/GameReview";
+import MyReviews from "./components/MyReviews";
+import CreatePost from "./components/CreatePost";
+
+
 
 function App() {
+  const [categoryFilterObj, setCategoryFilterObj] = useState({
+    categoryFilter: "",
+    description: "",
+  });
+
+  const [reviewId, setReviewId] = useState('');
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <section className="App" >
+        <Nav />
+        <Switch>
+          <Route exact path="/">
+            <Home setReviewId={setReviewId} categoryFilterObj={categoryFilterObj} />
+          </Route>
+          <Route exact path="/categories">
+            <Categories setCategoryFilterObj={setCategoryFilterObj} />
+          </Route>
+          <Route exact path="/sign-up">
+            <SignUp />
+          </Route>
+          <Route exact path="/my-reviews">
+            <MyReviews />
+          </Route>
+          <Route exact path="/create-post">
+            <CreatePost />
+          </Route>
+          <Route exact path="/log-in">
+            <LogInForm />
+          </Route>
+          <Route exact path="/reviews/:review_id">
+            <GameReview reviewId={reviewId} />
+          </Route>
+        </Switch>
+      </section>
+    </Router>
   );
 }
 
