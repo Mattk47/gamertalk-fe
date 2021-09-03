@@ -30,3 +30,8 @@ export const patchVote = (review_id, vote) => {
 export const deleteReview = (review_id) => {
     return axios.delete(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}`)
 }
+
+export const getCommentByReview = (review_id) => {
+    return axios.get(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}/comments`)
+
+}

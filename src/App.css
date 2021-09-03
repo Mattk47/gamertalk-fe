@@ -121,7 +121,7 @@ body {
   width: 300px;
 }
 
-.upvoteButton, .deleteButton, .submitButton{
+.upvoteButton, .deleteButton, .submitButton, .commentButton{
   background-color: rgb(26, 33, 46); 
   border: none;
   color: white;
@@ -133,6 +133,9 @@ body {
   margin-right: 20px;
 }
 
-.deleteButtonSpace {
-
+.comment{
+list-style: none;
+border: rgb(26, 33, 46) solid thin ;
+margin: 10px;
+text-align: center;
 }
