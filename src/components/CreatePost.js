@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { postReview } from "../utils"
 
 

@@ -22,3 +22,11 @@ export const getReviewById = (review_id) => {
 export const postReview = (reviewObj) => {
     return axios.post(`https://nc-games-project.herokuapp.com/api/reviews`, reviewObj)
 }
+
+export const patchVote = (review_id, vote) => {
+    return axios.patch(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}`, { inc_votes: vote })
+}
+
+export const deleteReview = (review_id) => {
+    return axios.delete(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}`)
+}

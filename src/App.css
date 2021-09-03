@@ -8,19 +8,19 @@ body {
   text-align: center;
 }
 
-h1 {
-  font-size: 1.5em;
-}
-h1 > span {
-  color: rgb(228, 176, 34);
+.heading__text {
+  font-size: 2em;
+  font-style:italic;
+  color: rgb(4, 4, 54);
 }
 
 .nav_bar {
   background-color: rgb(26, 33, 46);
-  box-shadow: 0px 5px 0px #adadad;
+  border: white solid;
   padding: 1em;
   display: flex;
   justify-content: space-around;
+  margin: 0%;
 }
 
 .nav_item {
@@ -34,7 +34,6 @@ h1 > span {
 }
 
 
-/* Dropdown Button */
 .dropbtn {
   background-color: rgb(26, 33, 46);
   color: white;
@@ -43,13 +42,13 @@ h1 > span {
   border: none;
 }
 
-/* The container <div> - needed to position the dropdown content */
+
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
-/* Dropdown Content (Hidden by Default) */
+
 .dropdown-content {
   display: none;
   position: absolute;
@@ -59,7 +58,7 @@ h1 > span {
   z-index: 1;
 }
 
-/* Links inside the dropdown */
+
 .dropdown-content a {
   color: black;
   padding: 12px 16px;
@@ -68,18 +67,28 @@ h1 > span {
   text-align: left;
 }
 
-/* Change color of dropdown links on hover */
+
 .dropdown-content a:hover {background-color: #ddd;}
 
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {background-color: #0f0f0f;}
 
 .review_image {
   width: 300px;
   border: 1px solid rgb(104, 104, 104);
+}
+
+.filterButton {
+  background-color: rgb(26, 33, 46);
+  border: none;
+  color:white;
+  size: 10%;
+  text-transform: uppercase;
+}
+
+.filterButton:hover{
+  color: rgb(255, 198, 43);
 }
 
 .review_container {
@@ -102,4 +111,20 @@ h1 > span {
 
 .form {
   width: 300px;
+}
+
+.upvoteButton, .deleteButton{
+  background-color: rgb(26, 33, 46); 
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.deleteButtonSpace {
+
 }
