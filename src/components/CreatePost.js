@@ -37,7 +37,7 @@ const CreatePost = () => {
                 submitReview(reviewObj);
             }}>
             <input
-                className="form"
+                className="form__box"
                 placeholder="Username:"
                 required
                 type="text"
@@ -45,7 +45,7 @@ const CreatePost = () => {
             ></input>
             <br></br><br></br>
             <input
-                className="form"
+                className="form__box"
                 placeholder="Title:"
                 required
                 type="text"
@@ -62,7 +62,7 @@ const CreatePost = () => {
             <br></br><br></br>
             <input
 
-                className="form"
+                className="form__box"
                 placeholder="Designer:"
                 required
                 type="text"
@@ -70,7 +70,7 @@ const CreatePost = () => {
             ></input>
             <br></br><br></br>
             <input
-                className="form"
+                className="form__box"
                 placeholder="Image Url:"
                 type="text"
                 onChange={(event) => updateReviewObj(event, "review_img_url")}
@@ -130,7 +130,7 @@ const CreatePost = () => {
                 </select>
             </label>
             <br></br> <br></br>
-            <button>Submit</button>
+            <button className="submitButton">Submit</button>
         </form>
     );
 };

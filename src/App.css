@@ -16,7 +16,7 @@ body {
 
 .nav_bar {
   background-color: rgb(26, 33, 46);
-  border: white solid;
+  border-top:gold solid;
   padding: 1em;
   display: flex;
   justify-content: space-around;
@@ -97,6 +97,7 @@ body {
   align-items: center;
   justify-content: center;
   margin-block: 5%;
+  
 }
 
 .categoryList {
@@ -109,11 +110,18 @@ body {
   height: 200px;
 }
 
-.form {
+.review_form {
+  border:rgb(26, 33, 46) solid;
+  padding: 20px;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.form__box {
   width: 300px;
 }
 
-.upvoteButton, .deleteButton{
+.upvoteButton, .deleteButton, .submitButton{
   background-color: rgb(26, 33, 46); 
   border: none;
   color: white;
