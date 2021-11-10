@@ -1,28 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 
+
 const Nav = () => {
     return (
         <div>
-            <h1 className="heading__text">GamerTalk</h1>
             <nav>
-                <ul className="nav_bar">
-                    <Link to="/" className="nav_item">
+                <ul className="nav_bar nav--margin">
+                    <Link to="/" className="nav__item">
                         Home
                     </Link>
-                    <Link to="/categories" className="nav_item">
+                    <Link to="/categories" className="nav__item">
                         Categories
                     </Link>
                     <div className="dropdown">
-                        <nav className="nav_item">My Account</nav>
-                        <div className="dropdown-content">
-                            <Link to="/user" className="nav_item">
+                        <nav className="nav__item">My Account</nav>
+                        <div className="dropdown--content">
+                            <Link to="/my-reviews" className="nav__item">
                                 My Reviews
                             </Link>
-                            <Link to="/sell" className="nav_item">
-                                My Comments
-                            </Link>
-                            <Link to="/create-post" className="nav_item">
+                            <Link to="/create-post" className="nav__item">
                                 Create Post
                             </Link>
                         </div>
