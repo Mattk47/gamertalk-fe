@@ -2,6 +2,10 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { getReviews } from '../utils.js'
 import { Link } from 'react-router-dom';
+import dayjs from "dayjs";
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const Home = ({ categoryFilterObj }) => {
     const [isLoading, setIsLoading] = useState(true);
@@ -12,18 +16,31 @@ const Home = ({ categoryFilterObj }) => {
     const [totalGames, setTotalGames] = useState(0)
     const gamesPerPage = 5
     const pageCount = Math.ceil(totalGames / gamesPerPage)
-    const pages = Array.from({ length: 5 }).map((el, i) => i + 1)
-
+    const pages = Array.from({ length: pageCount }).map((el, i) => i + 1)
 
     useEffect(() => {
         setIsLoading(true);
-        getReviews(reviewFilter, "desc", page, categoryFilter).then((result) => {
-            setReviewList(result.data.reviews);
-            setTotalGames(result.data.total_count);
+        if (totalGames === 0) {
+            let reviews = getReviews(reviewFilter, "desc", page, categoryFilter)
+            let totalReviews = getReviews(reviewFilter, "desc", page, categoryFilter, 100)
+            Promise.all([reviews, totalReviews]).then((resArr) => {
+                setReviewList(resArr[0].data.reviews);
+                setTotalGames(resArr[1].data.total_count);
+            })
+        } else {
+            getReviews(reviewFilter, "desc", page, categoryFilter).then(res => {
+                setReviewList(res.data.reviews);
+
+            })
             setIsLoading(false);
-        })
-    }, [reviewFilter, page, categoryFilter]);
+        }
+    }, [reviewFilter, page, categoryFilter, totalGames]);
+
     if (isLoading) return <p>Loading.....</p>;
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
 
     return (
         <section>
@@ -34,8 +51,8 @@ const Home = ({ categoryFilterObj }) => {
                     <button onClick={() => setReviewFilter("created_at")} className="filterButton">New</button>
                 </ul>
             </nav>
-            {categoryFilter ? <h2>{categoryFilter}</h2> : null}
-            {description ? <p>{description}</p> : null}
+            {categoryFilter ? <h2 >{categoryFilter}</h2> : null}
+            {description ? <p className='text--margin'>{description}</p> : null}
             <ul>
                 {reviewList.map(review => {
                     return (
@@ -44,19 +61,18 @@ const Home = ({ categoryFilterObj }) => {
                                 <h2 >{review.title}</h2>
                                 <img className="review_image" src={review.review_img_url} alt={review.category} />
                             </Link>
-                            <h3 >&#8679;{review.votes}</h3>
+                            <div className="text--white">
+                                <p>{dayjs(review.created_at).format("D MMM YYYY")}</p>
+                                <h3 >&#8679;{review.votes}</h3>
+                            </div>
                         </li>
                     )
                 })}
             </ul>
-            <section>
-                <button disabled={page === 1} onClick={() => { setPage((currPage) => currPage - 1) }}>&larr;</button>
-                {pages.map(page => (
-                    <button key={page} onClick={() => setPage(page)}>{page}</button>
-                ))}
-                <button disabled={page === 7} onClick={() => { setPage((currPage) => currPage + 1) }}>&rarr;</button>
-            </section>
-
+            <Stack spacing={2} alignItems="center" >
+                <Typography>Page: {page}</Typography>
+                <Pagination count={pageCount} page={page} onChange={handleChange} />
+            </Stack>
         </section>
     );
 };
