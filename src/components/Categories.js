@@ -10,24 +10,22 @@ const Categories = ({ setCategoryFilterObj }) => {
     }, [])
 
     return (
-        <section>
-            <ul>
-                {categories.map(category => {
-                    return (
-                        <li className="categoryList" key={category.slug}>
-                            <Link to="/">
-                                <h2 onClick={() => setCategoryFilterObj((currObj) => {
-                                    const newObj = { ...currObj }
-                                    newObj.categoryFilter = category.slug;
-                                    newObj.description = category.description;
-                                    return newObj;
-                                })}>{category.slug}</h2>
-                            </Link>
+        <section className="container">
+            {categories.map(category => {
+                return (
+                    <div className="categoryList" key={category.slug}>
+                        <Link to="/">
+                            <h2 className='link--colour a' onClick={() => setCategoryFilterObj((currObj) => {
+                                const newObj = { ...currObj }
+                                newObj.categoryFilter = category.slug;
+                                newObj.description = category.description;
+                                return newObj;
+                            })}>{category.slug}</h2>
+                        </Link>
 
-                        </li>
-                    )
-                })}
-            </ul>
+                    </div>
+                )
+            })}
         </section>
     );
 };
