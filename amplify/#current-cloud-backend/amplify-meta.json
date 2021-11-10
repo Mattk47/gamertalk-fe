@@ -1,0 +1,58 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gamertalk-dev-131738-authRole",
+      "UnauthRoleArn": "arn:aws:iam::028175166332:role/amplify-gamertalk-dev-131738-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::028175166332:role/amplify-gamertalk-dev-131738-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-gamertalk-dev-131738-deployment",
+      "UnauthRoleName": "amplify-gamertalk-dev-131738-unauthRole",
+      "StackName": "amplify-gamertalk-dev-131738",
+      "StackId": "arn:aws:cloudformation:us-east-2:028175166332:stack/amplify-gamertalk-dev-131738/42522bf0-3bdf-11ec-aa17-0a3ecf86355e",
+      "AmplifyAppId": "d36erpqikielyi"
+    }
+  },
+  "auth": {
+    "gamertalk3b6462b6": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "loginMechanisms": [
+          "PREFERRED_USERNAME"
+        ],
+        "signupAttributes": [
+          "NAME",
+          "PICTURE"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-gamertalk-dev-131738-deployment/amplify-cfn-templates/auth/gamertalk3b6462b6-cloudformation-template.yml",
+        "logicalId": "authgamertalk3b6462b6"
+      },
+      "lastPushTimeStamp": "2021-11-02T13:29:46.477Z",
+      "output": {
+        "UserPoolId": "us-east-2_u6wBTnIfM",
+        "AppClientIDWeb": "73clc5nrt9bpqhugairsmgomgb",
+        "AppClientID": "4i6ekl2gi1g0uoggmbit9jhelt",
+        "IdentityPoolId": "us-east-2:5b2b1789-e52d-4bbd-b3d7-af3dce4f288b",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:028175166332:userpool/us-east-2_u6wBTnIfM",
+        "IdentityPoolName": "gamertalk3b6462b6_identitypool_3b6462b6__dev",
+        "UserPoolName": "gamertalk3b6462b6_userpool_3b6462b6"
+      },
+      "lastPushDirHash": "Sgo3guMtOYVXnhBLSP/cdv4KJJc="
+    }
+  }
+}

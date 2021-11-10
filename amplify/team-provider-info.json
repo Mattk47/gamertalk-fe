@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-gamertalk-dev-131738-authRole",
+      "UnauthRoleArn": "arn:aws:iam::028175166332:role/amplify-gamertalk-dev-131738-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::028175166332:role/amplify-gamertalk-dev-131738-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-gamertalk-dev-131738-deployment",
+      "UnauthRoleName": "amplify-gamertalk-dev-131738-unauthRole",
+      "StackName": "amplify-gamertalk-dev-131738",
+      "StackId": "arn:aws:cloudformation:us-east-2:028175166332:stack/amplify-gamertalk-dev-131738/42522bf0-3bdf-11ec-aa17-0a3ecf86355e",
+      "AmplifyAppId": "d36erpqikielyi"
+    },
+    "categories": {
+      "auth": {
+        "gamertalk3b6462b6": {}
+      }
+    }
+  }
+}
