@@ -4,9 +4,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto' }
 const avatarStyle = { backgroundColor: 'rgb(26, 33, 46)', color: 'gold' }
-const buttonStyle = { 'margin-top': '20px', backgroundColor: '#1a212e' }
+const buttonStyle = { marginTop: '20px', backgroundColor: '#1a212e' }
 
 const SignUp = () => {
+
     return (<div>
         <Grid>
             <Paper elevation={20} style={paperStyle}>

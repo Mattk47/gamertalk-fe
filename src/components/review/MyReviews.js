@@ -1,6 +1,6 @@
 import React, { useEffect, useState, } from 'react';
-import { getReviewsByUsername, deleteReview } from '../utils'
-import { useAppContext } from "../lib/contextLib";
+import { getReviewsByUsername, deleteReview } from '../../utils'
+import { useAppContext } from "../../lib/contextLib";
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import dayjs from "dayjs";

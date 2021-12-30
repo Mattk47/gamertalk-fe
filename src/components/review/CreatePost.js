@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { postReview } from "../utils"
+import { useNavigate } from "react-router-dom";
+import { postReview } from "../../utils"
 import { Grid, Paper, TextField, Button, TextareaAutosize, Select, FormControl, MenuItem, InputLabel, Box } from '@material-ui/core'
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 const paperStyle = { padding: '30px 20px', width: 400, margin: '20px auto' }
-const avatarStyle = { backgroundColor: 'rgb(26, 33, 46)', color: 'gold' }
-const buttonStyle = { 'margin-top': '20px', backgroundColor: '#1a212e' }
+// const avatarStyle = { backgroundColor: 'rgb(26, 33, 46)', color: 'gold' }
+// const buttonStyle = { 'margin-top': '20px', backgroundColor: '#1a212e' }
 
 const CreatePost = () => {
+    let navigate = useNavigate();
     const [selectedValue, setSelectValue] = useState()
     const [redirectId, setRedirectId] = useState();
     const [reviewObj, setReviewObj] = useState(
@@ -44,7 +44,9 @@ const CreatePost = () => {
         }
         return postReview(reviewObj).then(result => setRedirectId(result.data.addedReview.review_id)).catch(err => console.log(err))
     };
-    if (redirectId) return <Redirect to={`/reviews/${redirectId}`} />
+    if (redirectId) {
+        navigate(`/reviews/${redirectId}`)
+    }
 
     return (
 

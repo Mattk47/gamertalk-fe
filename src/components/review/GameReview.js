@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getReviewById, patchVote, getCommentByReview } from '../utils'
-import { Redirect } from 'react-router-dom'
-import Expandable from '../Expandable';
+import { getReviewById, patchVote, getCommentByReview } from '../../utils'
+import Expandable from '../../Expandable';
 import { Button } from '@mui/material';
-import { Save } from '@mui/icons-material';
 
 const GameReview = () => {
     const [review, setReview] = useState({})
     const [newVote, setNewVote] = useState(0)
-    const [redirect, setRedirect] = useState();
     const [comments, setComments] = useState([])
     const { review_id } = useParams()
 
@@ -27,7 +24,7 @@ const GameReview = () => {
         window.localStorage.setItem('newVote', newVote);
     }, [newVote]);
 
-    console.log(review_id)
+
 
     const updateVote = () => {
         const vote = JSON.parse(window.localStorage.getItem('newVote'));
@@ -41,7 +38,6 @@ const GameReview = () => {
         }
     }
 
-    if (redirect) return <Redirect to={`/`} />
 
     return (
         <div>

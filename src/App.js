@@ -1,68 +1,43 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import './App.css';
-import Nav from "./components/Nav";
-import Home from "./components/Home";
-import Categories from "./components/Categories";
+import Nav from "./components/layout/Nav";
+import Home from "./components/review/Home";
+import Categories from "./components/review/Categories";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
-import GameReview from "./components/GameReview";
-import CreatePost from "./components/CreatePost";
-import MyReviews from "./components/MyReviews";
+import GameReview from "./components/review/GameReview";
+import CreatePost from "./components/review/CreatePost";
+import MyReviews from "./components/review/MyReviews";
 import { AppContext } from "./lib/contextLib";
-import Header from "./components/Header";
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from './aws-exports'
-Amplify.configure(awsconfig)
+import Header from "./components/layout/Header";
+import ReviewState from "./context/Review/ReviewState";
 
 function App() {
-  const [categoryFilterObj, setCategoryFilterObj] = useState({
-    categoryFilter: "",
-    description: "",
-  });
 
   const [reviewId, setReviewId] = useState('');
   const [isAuthenticated, userHasAuthenticated] = useState(true);
   const [user, setUser] = useState('grumpy19');
 
-  useEffect(() => {
-    const loggedInUser = localStorage.getItem("user");
-    if (loggedInUser) {
-      const foundUser = JSON.parse(loggedInUser);
-      setUser(foundUser);
-    }
-  }, []);
 
   return (
     <Router>
       <section className='App' >
-        <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated, user }}>
-          <Header setUser={setUser} userHasAuthenticated={userHasAuthenticated} isAuthenticated={isAuthenticated} />
-          <Nav />
-          <Switch>
-            <Route exact path="/login">
-              <Login setUser={setUser} />
-            </Route>
-            <Route exact path="/">
-              <Home setReviewId={setReviewId} categoryFilterObj={categoryFilterObj} />
-            </Route>
-            <Route exact path="/categories">
-              <Categories setCategoryFilterObj={setCategoryFilterObj} />
-            </Route>
-            <Route exact path="/sign-up">
-              <SignUp />
-            </Route>
-            <Route exact path="/create-post">
-              <CreatePost />
-            </Route>
-            <Route exact path="/my-reviews">
-              <MyReviews />
-            </Route>
-            <Route exact path="/reviews/:review_id">
-              <GameReview reviewId={reviewId} />
-            </Route>
-          </Switch>
-        </AppContext.Provider>
+        <ReviewState>
+          <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated, user }}>
+            <Header setUser={setUser} userHasAuthenticated={userHasAuthenticated} isAuthenticated={isAuthenticated} />
+            <Nav />
+            <Routes>
+              <Route path="/login" element={<Login setUser={setUser} />} />
+              <Route path="/" element={<Home setReviewId={setReviewId} />} />
+              <Route path="/categories" element={<Categories />} />
+              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/create-post" element={<CreatePost />} />
+              <Route path="/my-reviews" element={<MyReviews />} />
+              <Route path="/reviews/:review_id" element={<GameReview reviewId={reviewId} />} />
+            </Routes>
+          </AppContext.Provider>
+        </ReviewState>
       </section>
     </Router>
   )
