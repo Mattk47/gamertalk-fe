@@ -1,32 +1,33 @@
-import React, { useEffect, useState, } from 'react';
-import { getReviewsByUsername, deleteReview } from '../../utils'
+import React, { useEffect, useState, useContext } from 'react';
 import { useAppContext } from "../../lib/contextLib";
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import dayjs from "dayjs";
 import DeleteForeverSharpIcon from '@mui/icons-material/DeleteForeverSharp';
+import reviewContext from '../../context/Review/reviewContext.js';
 
 const MyReviews = () => {
     const { user } = useAppContext();
-    const [reviews, setReviews] = useState([]);
-    const [deleteId, setDeleteId] = useState()
+    const [userId, setUserId] = useState(null)
+    const ReviewContext = useContext(reviewContext)
+    const { getUserReviews, userReviews, deleteReview } = ReviewContext
+
     useEffect(() => {
-        getReviewsByUsername(user).then(res => {
-            setReviews(res.data.reviews)
-        })
-    }, [])
+        getUserReviews(user);
+        // eslint-disable-next-line
+    }, [userReviews])
 
     const removeReview = () => {
-        deleteReview(deleteId).then(res => window.location.reload(false))
+        deleteReview(userId).then(res => window.location.reload(false))
     }
 
     return (
         <section>
             <ul>
-                {reviews.map(review => {
+                {userReviews.map(review => {
                     return (
-                        <li onMouseEnter={() => setDeleteId(review.review_id)} className="review_container text--white" key={review.review_id}>
-                            <Link className='item-a' to={`reviews/${review.review_id}`}>
+                        <li onMouseEnter={() => setUserId(review.review_id)} className="review_container text--white" key={review.review_id}>
+                            <Link className='item-a' to={`/reviews/${review.review_id}`}>
                                 <h2 className="header--margin">{review.title}</h2>
                                 <img className="review_image" src={review.review_img_url} alt={review.category} />
                             </Link>
@@ -36,7 +37,7 @@ const MyReviews = () => {
                                 <Button onClick={e =>
                                     window.confirm("Are you sure you wish to delete this item?") &&
                                     removeReview()
-                                } variant="outlined" startIcon={<DeleteForeverSharpIcon />} style={{ color: 'white', 'border-color': 'white' }}>
+                                } variant="outlined" startIcon={<DeleteForeverSharpIcon />} style={{ color: 'white', 'borderColor': 'white' }}>
                                     Delete
                                 </Button>
                             </div>

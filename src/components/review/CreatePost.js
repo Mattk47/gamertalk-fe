@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { postReview } from "../../utils"
 import { Grid, Paper, TextField, Button, TextareaAutosize, Select, FormControl, MenuItem, InputLabel, Box } from '@material-ui/core'
+import reviewContext from '../../context/Review/reviewContext';
 
 const paperStyle = { padding: '30px 20px', width: 400, margin: '20px auto' }
 // const avatarStyle = { backgroundColor: 'rgb(26, 33, 46)', color: 'gold' }
@@ -9,8 +9,6 @@ const paperStyle = { padding: '30px 20px', width: 400, margin: '20px auto' }
 
 const CreatePost = () => {
     let navigate = useNavigate();
-    const [selectedValue, setSelectValue] = useState()
-    const [redirectId, setRedirectId] = useState();
     const [reviewObj, setReviewObj] = useState(
         {
             owner: 'grumpy19',
@@ -23,77 +21,86 @@ const CreatePost = () => {
     )
 
 
-    const handleChange = (event) => {
-        const eventCopy = event;
-        updateReviewObj(eventCopy, "category")
-        setSelectValue(event.target.value)
+    const ReviewContext = useContext(reviewContext)
+
+    const { addReview, review, removeReview } = ReviewContext;
+    const { title, review_body, designer, category, review_img_url } = reviewObj
+
+    useEffect(() => {
+        removeReview()
+        // eslint-disable-next-line 
+    }, [])
+
+
+    const handleChange = e => {
+        setReviewObj({ ...reviewObj, [e.target.name]: e.target.value })
+
     };
 
-    const updateReviewObj = (event, key) => {
-        setReviewObj((currObj) => {
-            const newObj = { ...currObj };
-            newObj[key] = event.target.value;
-            return newObj;
-        });
+
+    const submitReview = e => {
+        e.preventDefault()
+        addReview(reviewObj)
     };
-    const submitReview = (reviewObj) => {
-        if (reviewObj.review_img_url === '') {
-            setReviewObj((currObj) => {
-                currObj.review_img_url = 'https://images.pexels.com/photos/163064/play-stone-network-networked-interactive-163064.jpeg'
-            })
-        }
-        return postReview(reviewObj).then(result => setRedirectId(result.data.addedReview.review_id)).catch(err => console.log(err))
-    };
-    if (redirectId) {
-        navigate(`/reviews/${redirectId}`)
+
+    if (review.review_id) {
+        navigate(`/reviews/${review.review_id}`)
     }
 
-    return (
 
+    return (
         <Grid>
             <Paper elevation={20} style={paperStyle}>
                 <Grid>
                     <h1 style={{ 'marginBottom': '20px' }}>Create Post</h1>
                 </Grid>
                 <form className="review_form"
-                    onSubmit={(event) => {
-                        event.preventDefault();
-                        submitReview(reviewObj);
-                    }}>
+                    onSubmit={submitReview}>
                     <TextField
                         fullWidth
                         label='Title'
+                        name='title'
                         required
-                        onChange={(event) => updateReviewObj(event, "title")}
+                        value={title}
+                        onChange={handleChange}
                     ></TextField>
                     <TextareaAutosize
                         aria-label="minimum height"
                         minRows={5}
-                        placeholder="Review"
-                        style={{ width: 350, margin: '20px auto', 'margin-bottom': '10px' }}
-                        onChange={(event) => updateReviewObj(event, "review_body")}
+                        placeholder="Write your review here..."
+                        name='review_body'
+                        style={{ width: 350, margin: '20px auto', 'marginBottom': '10px' }}
+                        onChange={handleChange}
+                        value={review_body}
                     />
                     <TextField
                         fullWidth
                         placeholder="Designer"
                         required
+                        name='designer'
                         style={{ margin: '10px auto' }}
-                        onChange={(event) => updateReviewObj(event, "designer")}
+                        onChange={handleChange}
+                        value={designer}
                     ></TextField>
                     <TextField
+                        required
                         fullWidth
                         placeholder="Image Url"
-                        onChange={(event) => updateReviewObj(event, "review_img_url")}
+                        onChange={handleChange}
+                        name='review_img_url'
+                        value={review_img_url}
                     ></TextField>
                     <Box sx={{ minWidth: 120 }}>
                     </Box>
                     <FormControl fullWidth>
-                        <InputLabel required id="demo-simple-select-label">Game Category</InputLabel>
+                        <InputLabel required id="category-dropdown">Game Category</InputLabel>
                         <Select
+                            required
                             labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            id="category-dropdown"
                             label="Game Category"
-                            value={selectedValue}
+                            name='category'
+                            value={category}
                             onChange={handleChange}
                         >
                             <MenuItem value={'strategy'}>Strategy</MenuItem>
@@ -105,7 +112,7 @@ const CreatePost = () => {
                             <MenuItem value={'engine-building'}>Engine-building</MenuItem>
                         </Select>
                     </FormControl>
-                    <Button variant='outlined' color='primary' style={{ color: 'rgb(26, 33, 46)', borderColor: 'rgb(26, 33, 46)', 'margin-top': '20px' }}> Submit</Button>
+                    <Button type='submit' variant='outlined' color='primary' style={{ color: 'rgb(26, 33, 46)', borderColor: 'rgb(26, 33, 46)', 'marginTop': '20px' }}> Submit</Button>
                 </form>
             </Paper>
         </Grid>

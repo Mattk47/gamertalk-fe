@@ -1,44 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { getReviewById, patchVote, getCommentByReview } from '../../utils'
+import { patchVote } from '../../utils'
 import Expandable from '../../Expandable';
 import { Button } from '@mui/material';
+import reviewContext from '../../context/Review/reviewContext.js';
+import Spinner from '../layout/Spinner.js';
 
 const GameReview = () => {
-    const [review, setReview] = useState({})
+    const ReviewContext = useContext(reviewContext)
+    const { review, getReview, comments, loading, isOpen } = ReviewContext;
     const [newVote, setNewVote] = useState(0)
-    const [comments, setComments] = useState([])
     const { review_id } = useParams()
 
     useEffect(() => {
-        const getReview = getReviewById(review_id)
-        const getComment = getCommentByReview(review_id)
-        Promise.all([getReview, getComment]).then(resArr => {
-            setReview(resArr[0].data.review)
-            setComments(resArr[1].data.comments)
-        })
-
-    }, [review_id])
+        getReview(review_id)
+        // eslint-disable-next-line
+    }, [review_id, comments])
 
     useEffect(() => {
         window.localStorage.setItem('newVote', newVote);
     }, [newVote]);
-
-
 
     const updateVote = () => {
         const vote = JSON.parse(window.localStorage.getItem('newVote'));
         console.log(vote)
         if (vote === 0) {
             setNewVote(1)
-            patchVote(review_id, 1).then()
+            patchVote(review_id, 1)
         } else {
             setNewVote(0)
-            patchVote(review_id, -1).then()
+            patchVote(review_id, -1)
         }
     }
-
-
+    if (loading && !isOpen) return <Spinner />;
     return (
         <div>
             <h2 className="reviewTitle review__text">{review.title}</h2>
@@ -52,7 +46,7 @@ const GameReview = () => {
                 : <Button variant='outlined' color='primary' style={{ color: 'rgb(26, 33, 46)', borderColor: 'rgb(26, 33, 46)', border: '2px solid' }} onClick={updateVote}>Upvote</Button>
             }
 
-            <h2>Comments</h2>
+            <h2 style={{ marginTop: '20px', marginBottom: '20px' }}>Comments</h2>
             <Expandable reviewId={review_id}>
                 <ul>
                     {
