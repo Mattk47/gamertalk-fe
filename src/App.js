@@ -15,9 +15,9 @@ import ReviewState from "./context/Review/ReviewState";
 
 function App() {
 
-  const [reviewId, setReviewId] = useState('');
+
   const [isAuthenticated, userHasAuthenticated] = useState(true);
-  const [user, setUser] = useState('grumpy19');
+  const [user] = useState('grumpy19');
 
 
   return (
@@ -25,16 +25,16 @@ function App() {
       <section className='App' >
         <ReviewState>
           <AppContext.Provider value={{ isAuthenticated, userHasAuthenticated, user }}>
-            <Header setUser={setUser} userHasAuthenticated={userHasAuthenticated} isAuthenticated={isAuthenticated} />
+            <Header userHasAuthenticated={userHasAuthenticated} isAuthenticated={isAuthenticated} />
             <Nav />
             <Routes>
-              <Route path="/login" element={<Login setUser={setUser} />} />
-              <Route path="/" element={<Home setReviewId={setReviewId} />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Home />} />
               <Route path="/categories" element={<Categories />} />
               <Route path="/sign-up" element={<SignUp />} />
               <Route path="/create-post" element={<CreatePost />} />
               <Route path="/my-reviews" element={<MyReviews />} />
-              <Route path="/reviews/:review_id" element={<GameReview reviewId={reviewId} />} />
+              <Route path="/reviews/:review_id" element={<GameReview />} />
             </Routes>
           </AppContext.Provider>
         </ReviewState>
