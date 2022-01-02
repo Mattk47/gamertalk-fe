@@ -1,27 +1,35 @@
 import React, { useReducer } from 'react'
 import reviewContext from './reviewContext'
-import { v4 } from 'uuid';
 import reviewReducer from './reviewReducer'
 import axios from 'axios'
 import {
     GET_REVIEWS,
-    SET_REVIEW_FILTER,
-    SET_CATEGORY_FILTER,
     GET_CATEGORIES,
     SET_PAGE,
     SET_LOADING,
+    ADD_REVIEW,
+    REMOVE_REVIEW,
+    GET_USER_REVIEWS,
+    SET_REVIEW,
+    DELETE_REVIEW,
+    SET_COMMENTS,
+    ADD_COMMENT,
+    TOGGLE_OPEN
 } from '../types';
 
 const ReviewState = props => {
     const initialState = {
-        loading: true,
-        review: null,
+        loading: false,
+        review: {},
         reviewList: [],
         reviewFilter: null,
         categoryFilter: null,
         totalGames: 0,
         categories: [],
-        page: 1
+        page: 1,
+        userReviews: [],
+        comments: [],
+        isOpen: false,
     }
     const [state, dispatch] = useReducer(reviewReducer, initialState)
 
@@ -42,7 +50,7 @@ const ReviewState = props => {
 
     const setFilter = (filter, value) => {
         const type = `SET_${filter}_FILTER`
-        console.log(type)
+
         dispatch({ type: type, payload: value })
     }
 
@@ -52,6 +60,13 @@ const ReviewState = props => {
 
         dispatch({ type: GET_CATEGORIES, payload: res.data.categories })
     }
+
+    const getUserReviews = async (username) => {
+        setLoading()
+        const res = await axios.get(`https://nc-games-project.herokuapp.com/api/users/reviews/${username}`)
+        dispatch({ type: GET_USER_REVIEWS, payload: res.data.reviews })
+    }
+
 
     const setPage = async (page) => {
 
@@ -63,6 +78,49 @@ const ReviewState = props => {
         dispatch({ type: SET_LOADING })
     }
 
+    const addReview = async (review) => {
+        setLoading()
+        try {
+            const res = await axios.post(`https://nc-games-project.herokuapp.com/api/reviews`, review)
+            dispatch({ type: ADD_REVIEW, payload: res.data.addedReview })
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    const removeReview = () => {
+        dispatch({ type: REMOVE_REVIEW })
+    }
+
+    const deleteReview = async (id) => {
+        setLoading()
+        await axios.delete(`https://nc-games-project.herokuapp.com/api/reviews/${id}`)
+        dispatch({ type: DELETE_REVIEW, payload: id })
+    }
+
+    const getReview = async (id) => {
+        setLoading()
+        const res = await axios.get(`https://nc-games-project.herokuapp.com/api/reviews/${id}`)
+        dispatch({ type: SET_REVIEW, payload: res.data.review })
+
+    }
+
+    const getComments = async (review_id) => {
+        setLoading()
+        const res = await axios.get(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}/comments`)
+        dispatch({ type: SET_COMMENTS, payload: res.data.comments })
+
+    }
+    const addComment = async (review_id, username, comment) => {
+        setLoading()
+        const res = await axios.post(`https://nc-games-project.herokuapp.com/api/reviews/${review_id}/comments`, { username, body: comment })
+        dispatch({ type: ADD_COMMENT, payload: res.data.comment })
+
+    }
+
+    const toggleOpen = () => dispatch({ type: TOGGLE_OPEN })
 
     return (
         <reviewContext.Provider
@@ -70,16 +128,27 @@ const ReviewState = props => {
                 loading: state.loading,
                 review: state.review,
                 reviewList: state.reviewList,
+                userReviews: state.userReviews,
                 categories: state.categories,
                 page: state.page,
                 totalGames: state.totalGames,
                 reviewFilter: state.reviewFilter,
                 categoryFilter: state.categoryFilter,
+                comments: state.comments,
+                isOpen: state.isOpen,
                 getReviews,
                 setFilter,
                 getCategories,
                 setPage,
-                setLoading
+                setLoading,
+                addReview,
+                removeReview,
+                getUserReviews,
+                getReview,
+                deleteReview,
+                getComments,
+                addComment,
+                toggleOpen
             }
             }>
             {props.children}
