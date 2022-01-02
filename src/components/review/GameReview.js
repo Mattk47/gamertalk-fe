@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { patchVote } from '../../utils'
-import Expandable from '../../Expandable';
+import ExpandableComments from './ExpandableComments';
 import { Button } from '@mui/material';
 import reviewContext from '../../context/Review/reviewContext.js';
 import Spinner from '../layout/Spinner.js';
@@ -47,7 +47,7 @@ const GameReview = () => {
             }
 
             <h2 style={{ marginTop: '20px', marginBottom: '20px' }}>Comments</h2>
-            <Expandable reviewId={review_id}>
+            <ExpandableComments reviewId={review_id}>
                 <ul>
                     {
                         comments.map(comment => {
@@ -61,7 +61,7 @@ const GameReview = () => {
                     }
                 </ul>
 
-            </Expandable>
+            </ExpandableComments>
         </div>
     );
 };
