@@ -23,6 +23,14 @@ body {
   justify-content: space-around;
   margin: 0%
 }
+.filter_bar {
+  background-color: rgb(26, 33, 46);
+  border-top:gold solid;
+  padding: 1em;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px
+}
 
 .nav--margin {
   margin-top: 10px;
@@ -255,5 +263,29 @@ a:hover {
   
 }
 
+.relative {
+  position: relative;
+  display: inline-flex;
+}
+
+.x {
+  position: absolute;
+  top: -0.2rem;
+  right: -.2rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse {
+  50% {
+      opacity: .5;
+  }
+}
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
 
