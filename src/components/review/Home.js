@@ -7,6 +7,8 @@ import Stack from '@mui/material/Stack';
 import reviewContext from '../../context/Review/reviewContext.js';
 import Spinner from '../layout/Spinner.js';
 import Filters from '../layout/Filters.js';
+import { Button } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 const Home = () => {
     const ReviewContext = useContext(reviewContext)
@@ -15,7 +17,6 @@ const Home = () => {
     const pageCount = Math.ceil(totalGames / gamesPerPage)
 
     useEffect(() => {
-
         getReviews(reviewFilter, "desc", page, categoryFilter)
 
     }, [reviewFilter, page, categoryFilter, totalGames]);
@@ -27,10 +28,19 @@ const Home = () => {
         setPage(value);
     };
 
+    const filterButton = { color: 'white', border: 'solid', borderColor: 'rgb(26, 33, 46)', border: '2px solid', backgroundColor: 'rgb(26, 33, 46)' }
+
     return (
         <section>
             <Filters />
-            {categoryFilter ? <h2 >{categoryFilter}</h2> : null}
+            {
+                categoryFilter ? (<div className='relative'>
+                    <Button variant='contained' color='primary' style={filterButton}>{categoryFilter}</Button>
+                    <div className='x animate-pulse'>
+                        <CancelIcon style={{ color: 'red' }} onClick={() => window.location.reload(false)} />
+                    </div>
+                </div>) : null
+            }
             <ul>
                 {reviewList.map(review => {
                     return (
