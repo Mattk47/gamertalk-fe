@@ -11,6 +11,8 @@ const GameReview = () => {
     const { review, getReview, comments, loading, isOpen } = ReviewContext;
     const [newVote, setNewVote] = useState(0)
     const { review_id } = useParams()
+    const buttonFilled = { color: 'white', border: 'solid', borderColor: 'rgb(26, 33, 46)', border: '2px', backgroundColor: 'rgb(26, 33, 46)' };
+    const button = { color: 'rgb(26, 33, 46)', borderColor: 'rgb(26, 33, 46)', border: '2px solid' }
 
     useEffect(() => {
         getReview(review_id)
@@ -18,11 +20,11 @@ const GameReview = () => {
     }, [review_id, comments])
 
     useEffect(() => {
-        window.localStorage.setItem('newVote', newVote);
+        localStorage.setItem('newVote', newVote);
     }, [newVote]);
 
     const updateVote = () => {
-        const vote = JSON.parse(window.localStorage.getItem('newVote'));
+        const vote = JSON.parse(localStorage.getItem('newVote'));
         console.log(vote)
         if (vote === 0) {
             setNewVote(1)
@@ -35,15 +37,15 @@ const GameReview = () => {
     if (loading && !isOpen) return <Spinner />;
     return (
         <div>
-            <h2 className="reviewTitle review__text">{review.title}</h2>
+            <h2 className="review__text">{review.title}</h2>
             <img className="review_image " alt={review.category} src={review.review_img_url} />
             <p className='text--margin review__text'>{review.review_body}</p>
             <p className='review__text'>Author:<strong> {review.owner}</strong> </p>
 
             <h3 >&#8679;{review.votes + newVote}</h3>
 
-            {newVote ? <Button variant='contained' color='primary' style={{ color: 'white', borderColor: 'rgb(26, 33, 46)', border: '2px solid', backgroundColor: 'rgb(26, 33, 46)' }} onClick={updateVote}>Upvote</Button>
-                : <Button variant='outlined' color='primary' style={{ color: 'rgb(26, 33, 46)', borderColor: 'rgb(26, 33, 46)', border: '2px solid' }} onClick={updateVote}>Upvote</Button>
+            {newVote ? <Button variant='contained' color='primary' style={buttonFilled} onClick={updateVote}>Upvote</Button>
+                : <Button variant='outlined' color='primary' style={button} onClick={updateVote}>Upvote</Button>
             }
 
             <h2 style={{ marginTop: '20px', marginBottom: '20px' }}>Comments</h2>

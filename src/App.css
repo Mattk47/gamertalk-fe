@@ -164,7 +164,7 @@ font-family:'Courier New', Courier, monospace;
 }
 
 .text--margin {
-  margin: 10px
+  margin: 20px
 }
 
 .text--white {
@@ -174,6 +174,7 @@ font-family:'Courier New', Courier, monospace;
 
 .review__text {
   font-family:'Courier New', Courier, monospace;
+  margin-top: 10px;
 }
 
 a, a:link, a:visited {
