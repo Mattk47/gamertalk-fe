@@ -2,12 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { Grid, Paper, TextField, Button, TextareaAutosize, Select, FormControl, MenuItem, InputLabel, Box } from '@material-ui/core'
 import reviewContext from '../../context/Review/reviewContext';
-
+import isImageURL from 'image-url-validator';
 const paperStyle = { padding: '30px 20px', width: 400, margin: '20px auto' }
-// const avatarStyle = { backgroundColor: 'rgb(26, 33, 46)', color: 'gold' }
-// const buttonStyle = { 'margin-top': '20px', backgroundColor: '#1a212e' }
 
 const CreatePost = () => {
+    const [validImage, setValidImage] = useState(null);
     let navigate = useNavigate();
     const [reviewObj, setReviewObj] = useState(
         {
@@ -32,21 +31,24 @@ const CreatePost = () => {
     }, [])
 
 
+
     const handleChange = e => {
         setReviewObj({ ...reviewObj, [e.target.name]: e.target.value })
 
     };
 
 
-    const submitReview = e => {
-        e.preventDefault()
-        addReview(reviewObj)
+    const submitReview = async e => {
+        // setValidImage(valid)
+        if (validImage) {
+            e.preventDefault()
+            addReview(reviewObj)
+        }
     };
 
     if (review.review_id) {
         navigate(`/reviews/${review.review_id}`)
     }
-
 
     return (
         <Grid>
@@ -87,6 +89,7 @@ const CreatePost = () => {
                         fullWidth
                         placeholder="Image Url"
                         onChange={handleChange}
+                        error={validImage}
                         name='review_img_url'
                         value={review_img_url}
                     ></TextField>

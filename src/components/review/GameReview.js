@@ -25,7 +25,6 @@ const GameReview = () => {
 
     const updateVote = () => {
         const vote = JSON.parse(localStorage.getItem('newVote'));
-        console.log(vote)
         if (vote === 0) {
             setNewVote(1)
             patchVote(review_id, 1)

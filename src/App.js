@@ -15,10 +15,8 @@ import ReviewState from "./context/Review/ReviewState";
 
 function App() {
 
-
   const [isAuthenticated, userHasAuthenticated] = useState(true);
   const [user] = useState('grumpy19');
-
 
   return (
     <Router>

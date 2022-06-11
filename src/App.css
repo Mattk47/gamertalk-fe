@@ -1,4 +1,5 @@
-body {
+body,
+ul {
   font-family: "Roboto", sans-serif;
   padding: 0;
   margin: 0;
@@ -11,25 +12,25 @@ body {
 
 .heading__text {
   font-size: 2em;
-  font-style:italic;
+  font-style: italic;
   color: rgb(4, 4, 54);
 }
 
 .nav_bar {
   background-color: rgb(26, 33, 46);
-  border-top:gold solid;
+  border-top: gold solid;
   padding: 1em;
   display: flex;
   justify-content: space-around;
-  margin: 0%
+  margin: 0%;
 }
 .filter_bar {
   background-color: rgb(26, 33, 46);
-  border-top:gold solid;
+  border-top: gold solid;
   padding: 1em;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .nav--margin {
@@ -40,15 +41,17 @@ body {
   text-decoration: none;
   color: white;
   text-transform: uppercase;
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: bold;
+}
 
+link:hover {
+  color: rgb(255, 198, 43);
 }
 
 .nav__item:hover {
   color: rgb(255, 198, 43);
 }
-
 
 .dropbtn {
   background-color: rgb(26, 33, 46);
@@ -56,22 +59,19 @@ body {
   border: none;
 }
 
-
 .dropdown {
   position: relative;
   display: inline-block;
 }
-
 
 .dropdown--content {
   display: none;
   position: absolute;
   background-color: #9b9797;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
-
 
 .dropdown--content a {
   color: black;
@@ -81,20 +81,26 @@ body {
   text-align: left;
 }
 
+.dropdown--content a:hover {
+  background-color: #ddd;
+}
 
-.dropdown--content a:hover {background-color: #ddd;}
+.dropdown:hover .dropdown--content {
+  display: block;
+}
 
-.dropdown:hover .dropdown--content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #0f0f0f;}
+.dropdown:hover .dropbtn {
+  background-color: #0f0f0f;
+}
 
 .review_image {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 400px;
-  height: 300px;
-  border: 1px solid rgb(104, 104, 104);
+  max-width: 400px;
+  max-height: 300px;
+  border: 1px solid white;
+  border-radius: 10px;
 }
 
 @media screen and (max-width: 400px) {
@@ -111,25 +117,41 @@ body {
 .filterButton {
   background-color: rgb(26, 33, 46);
   border: none;
-  color:white;
+  color: white;
   size: 10%;
   text-transform: uppercase;
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: bold;
 }
 
-.filterButton:hover{
+.filterButton:hover {
   color: rgb(255, 198, 43);
 }
 
 .review_container {
-  border: solid rgb(26, 33, 46);
-  list-style: none;
   border-radius: 25px;
-  justify-content: center;
-  margin: 20px 35px 20px 0px;
   padding: 10px;
- background-color: rgb(26, 33, 46);
+  background-color: rgb(26, 33, 46);
+  width: 45%;
+  max-width: 600px;
+  height: 500px;
+  margin: 20px auto;
+  position: relative;
+}
+.reviewWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 1900px) {
+  .reviewWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1850px;
+    margin: 0 auto;
+  }
 }
 
 .categoryList {
@@ -137,12 +159,15 @@ body {
   justify-content: center;
   align-items: center;
   margin: 10px;
- background-color: rgb(26, 33, 46);
+  background-color: rgb(26, 33, 46);
   border: solid rgb(26, 33, 46);
 }
 
-.upvoteButton, .deleteButton, .submitButton, .commentButton{
-  background-color: rgb(26, 33, 46); 
+.upvoteButton,
+.deleteButton,
+.submitButton,
+.commentButton {
+  background-color: rgb(26, 33, 46);
   border: none;
   color: white;
   padding: 15px 32px;
@@ -154,38 +179,46 @@ body {
   margin-bottom: 15px;
 }
 
-.commentBox{
-list-style: none;
-border: rgb(26, 33, 46) solid thin ;
-margin-right: 35px;
-margin-bottom: 30px;
-text-align: center;
-font-family:'Courier New', Courier, monospace;
+.commentBox {
+  list-style: none;
+  border: rgb(26, 33, 46) solid thin;
+  margin-right: 35px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  padding-left: 35px;
+  padding-right: 35px;
 }
 
 .text--margin {
-  margin: 20px
+  margin: 10px;
 }
 
 .text--white {
   color: white;
   font-weight: bold;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10px;
 }
 
 .review__text {
-  font-family:'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
   margin-top: 10px;
 }
 
-a, a:link, a:visited {
+a,
+a:link,
+a:visited {
   color: white;
   text-decoration: none;
-  font-family:'Courier New', Courier, monospace
+  font-family: "Courier New", Courier, monospace;
 }
 
 a:hover {
- color: gold;
-} 
+  color: gold;
+}
 
 @media screen and (min-width: 400px) {
   .container {
@@ -193,9 +226,8 @@ a:hover {
     grid-template-columns: 1fr 1fr;
     grid-gap: 0.5rem;
     margin: 30px 0px 50px 0px;
-    
   }
-} 
+}
 @media screen and (min-width: 480px) {
   .Login {
     padding: 60px 0;
@@ -216,15 +248,15 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-} 
+}
 
 .header__links {
   text-align: center;
-  margin-bottom:-10px;
+  margin-bottom: -10px;
 }
 
 .header__buttons {
-  float:right;
+  float: right;
   width: auto;
   margin: 0 auto;
   background-color: rgb(26, 33, 46);
@@ -234,8 +266,8 @@ a:hover {
 }
 
 @media screen and (min-width: 600px) {
-  .header__buttons{
-    float:right;
+  .header__buttons {
+    float: right;
     width: auto;
     margin: 0 auto;
     background-color: rgb(26, 33, 46);
@@ -243,7 +275,7 @@ a:hover {
     font-size: 20px;
     text-align: center;
     margin-top: 10px;
-} 
+  }
 }
 
 .header {
@@ -261,7 +293,6 @@ a:hover {
 .item-b {
   grid-area: button;
   margin-right: 100px;
-  
 }
 
 .relative {
@@ -272,7 +303,7 @@ a:hover {
 .x {
   position: absolute;
   top: -0.2rem;
-  right: -.2rem;
+  right: -0.2rem;
   width: 1.25rem;
   height: 1.25rem;
   display: flex;
@@ -282,11 +313,9 @@ a:hover {
 
 @keyframes pulse {
   50% {
-      opacity: .5;
+    opacity: 0.5;
   }
 }
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
-
-
